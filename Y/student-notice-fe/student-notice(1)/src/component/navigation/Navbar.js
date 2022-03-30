@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     display: "flex",
   },
-  
   logo2: {
     maxWidth: 160,
     height: 50,
     borderRadius: "50%",
+    marginRight: 20,
   },
   logo: {
     flexGrow: "1",

@@ -8,17 +8,25 @@ import {
 } from "@material-ui/core";
 import {
     Security,
-    Info
+    Info,
 } from "@material-ui/icons";
+import CallIcon from '@material-ui/icons/Call';
+import HomeIcon from '@material-ui/icons/Home';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 
 const Footer = () => <>
         <Grid container justify="center" style={{minHeight: "212px",background: '#2E3B55',color:'aliceblue'}}>
             <Grid container item sm={6} xs={11} justify="space-between">
                 <Grid item sm={3} xs={12}>
-                    <Security color="action" />
-                    <Typography paragraph>
-                        The donations made on this site are sent through<Link href="https://stripe.com/docs/security/stripe" target="_blank" alt="Stripe">here</Link>.
-                    </Typography>
+                    <div>
+                    <CallIcon/>9978456122
+                    </div>
+                    <div>
+                    <EmailOutlinedIcon style={{paddingInlineEnd:'5px'}}/>contact@smith.com
+                    </div>
+                    <div>
+                    <HomeIcon/>305/306 Luxuria Business Hub, Near VR mall, Surat - Dumas Rd, Surat, Gujarat 395007
+                    </div> 
                 </Grid>
                 <Grid item sm={3} xs={11}>
                     <Info color="action" />
