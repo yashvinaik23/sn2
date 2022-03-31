@@ -11,7 +11,6 @@ import {
   makeStyles,
   FormHelperText,
 } from '@material-ui/core';
-import blue from "@material-ui/core/colors/blue";
 
 import { PostContact } from "../../../actions/actions";
 import SnackbarUI from "../../../UI/snackbar";
@@ -20,7 +19,7 @@ import SnackbarUI from "../../../UI/snackbar";
   body: {
     padding: '60px 60px',
     margin: '125px 350px',
-    border: `4px solid ${blue[800]}`,
+    border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
   inputBox: {
@@ -30,7 +29,7 @@ import SnackbarUI from "../../../UI/snackbar";
   submitButton: {
     width: '300px',
     margin: '0px 15px',
-    backgroundColor: '#1565C0',
+    backgroundColor: '#B2DFDB',
     color: 'white',
   },
   error: {

@@ -26,7 +26,7 @@ import {
 } from "@material-ui/core";
 
 
-import ResultItem from "./ResultItem/ResultItem";
+import ResultItem from "./ResultItem";
 import { GetResult } from "../../../actions/actions";
 
 const useStyles = makeStyles(() => ({
@@ -88,6 +88,16 @@ const AvailableResults = props => {
     getResult();
   }, []);
 
+  const resultList = props?.result.map(meal => (
+    <ResultItem
+      key={meal._id}
+      id={meal._id}
+      name={meal.name}
+      description={meal.description}
+      date={meal.date}
+    />
+  ));
+
   const deleteHandler = (id) => {
     // const id = props.id;
     props?.DeleteContact(id);
@@ -103,75 +113,11 @@ const AvailableResults = props => {
   }
 
   return (
-    <div>
-      <div className={classes.tableBody}>
-        <Grid container direction="column" spacing={4} alignItems="center">
-          <Grid item>
-            <div className={classes.heading}>
-              <Typography variant="h4" component="h2">
-                Available Contacts
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item></Grid>
-        </Grid>
-
-        <TableContainer component={Paper}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Subject</StyledTableCell>
-                <StyledTableCell>Status</StyledTableCell>
-                <StyledTableCell>Marks</StyledTableCell>
-                {user.position === "Teacher" && <StyledTableCell>Delete</StyledTableCell>}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props?.result.length &&
-                props?.result.map((result, id) => (
-                  <StyledTableRow>                    
-                    <StyledTableCell>{result.subject}</StyledTableCell>
-                    <StyledTableCell>{result.status}</StyledTableCell>
-                    <StyledTableCell>{result.marks}</StyledTableCell>
-                    {user.position === "Teacher" && <StyledTableCell>
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleDelete(result._id)}
-                      >
-                        Delete
-                      </Button>
-                    </StyledTableCell>}
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-
-      <Dialog
-        fullScreen={fullScreen}
-        open={open.open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title">
-          {"Confirm the action"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are You Sure You Want to Delete Data?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button onClick={() => deleteHandler(open.id)} autoFocus>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <section style={{position:"relative"}}>
+      <>
+        <div style={{display: "flex", width:40}}>{resultList}</div>
+      </>
+    </section>
   );
 };
 

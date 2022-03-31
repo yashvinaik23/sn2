@@ -2,6 +2,9 @@ import React, { Fragment, useRef, useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect, useSelector } from "react-redux";
 
+import { PostResult } from "../../../actions/actions";
+import SnackbarUI from "../../../UI/snackbar";
+
 import {
   Grid,
   Paper,
@@ -11,13 +14,12 @@ import {
   makeStyles,
   FormHelperText,
 } from '@material-ui/core';
-import blue from "@material-ui/core/colors/blue";
 
 const useStyles = makeStyles(() => ({
   body: {
     padding: '60px 60px',
     margin: '125px 350px',
-    border: `4px solid ${blue[800]}`,
+    border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
   inputBox: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(() => ({
   submitButton: {
     width: '300px',
     margin: '0px 15px',
-    backgroundColor: '#1565C0',
+    backgroundColor: '#B2DFDB',
     color: 'white',
   },
   error: {
@@ -37,12 +39,7 @@ const useStyles = makeStyles(() => ({
     textDecoration: 'none',
     color: 'black',
   },
-  
 }));
-
-import { PostResult } from "../../../actions/actions";
-import SnackbarUI from "../../../UI/snackbar";
-import classes from "./resultForm.module.css";
 
 const ResultForm = props => {
   const classes = useStyles();
@@ -134,7 +131,7 @@ const ResultForm = props => {
             {/*  Typography use for size or different heading tag */}
   
             <Typography variant="h4" component="h2">
-              Contact Form
+              Result Form
             </Typography>
           </Grid>
           <Grid item>

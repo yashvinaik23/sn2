@@ -11,7 +11,6 @@ import {
   makeStyles,
   FormHelperText,
 } from '@material-ui/core';
-import blue from "@material-ui/core/colors/blue";
 
 import { PostHoliday } from "../../../actions/actions";
 import SnackbarUI from "../../../UI/snackbar";
@@ -20,7 +19,7 @@ const useStyles = makeStyles(() => ({
   body: {
     padding: '60px 60px',
     margin: '25px 50px',
-    border: `4px solid ${blue[800]}`,
+    border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
   inputBox: {
@@ -30,7 +29,7 @@ const useStyles = makeStyles(() => ({
   submitButton: {
     width: '300px',
     margin: '0px 15px',
-    backgroundColor: '#1565C0',
+    backgroundColor: '#B2DFDB',
     color: 'white',
   },
   error: {
@@ -97,7 +96,7 @@ const HolidayForm = props => {
             {/*  Typography use for size or different heading tag */}
   
             <Typography variant="h4" component="h2">
-              Contact Form
+              Holiday Form
             </Typography>
           </Grid>
           <Grid item>

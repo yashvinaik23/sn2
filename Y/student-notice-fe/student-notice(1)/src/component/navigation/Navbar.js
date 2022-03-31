@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import AddUser from "../../Users/AddUser";
 import SignIn from "../../Users/signIn";
-import logo from "./logo.png";
+import logo from "../../UI/image/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
     fontSize: "20px",
-    marginLeft: theme.spacing(20),
+    marginLeft: theme.spacing(10),
     "&:hover": {
       color: "yellow",
       borderBottom: "1px solid white",

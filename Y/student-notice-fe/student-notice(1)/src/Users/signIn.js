@@ -14,8 +14,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Link
 } from '@material-ui/core';
-import blue from "@material-ui/core/colors/blue";
 
 import { SignUpUser } from "../actions/actions";
 
@@ -42,6 +42,13 @@ const useStyles = makeStyles(() => ({
   LinkColor: {
     textDecoration: "none",
     color: "black",
+  },
+  link : {
+    textDecoration: 'none',
+    color:"grey",
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
 }));
 
@@ -227,10 +234,10 @@ const SignIn = props => {
           </Button>
         </Grid>
         <Grid item>
-          <Typography onClick={props.formManipulate} variant="subtitle2">
-            {/* <Link to="/Login" className={classes.LinkColor}> */}
+          <Typography onClick={props.formManipulate} variant="subtitle2" className={classes.link}>
+             {/* <Link to="/Login" className={classes.LinkColor}> */}
               Already have an Account?
-            {/* </Link> */}
+             {/* </Link> */}
           </Typography>
         </Grid>
       </Grid>

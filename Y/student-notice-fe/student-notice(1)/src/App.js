@@ -13,9 +13,11 @@ import Home from "./Users/Home";
 import Result from "./component/pages/result/result";
 import Contact from "./component/pages/contact/Contact";
 import Form from "./Users/Form";
+import SignIn from "./Users/signIn";
+// import classes from "./App.module.css";
 
 function App() {
-  const isLogin = useSelector(state => state.logIn.isLoggedIn);
+  const isLogin = useSelector((state) => state.logIn.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -46,10 +48,11 @@ function App() {
           </>
         )}
         <Route exact path="/login" component={Form} />
+        <Route exact path="/signin" component={SignIn} />
         <Route path="/" component={Home} />
         {/* <Route path="/Signup" component={Form} /> */}
       </Switch>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }

@@ -10,6 +10,7 @@ import {
   TextField,
   makeStyles,
   FormHelperText,
+  Link,
   Modal,
   IconButton,
 } from "@material-ui/core";
@@ -39,6 +40,13 @@ const useStyles = makeStyles(() => ({
   LinkColor: {
     textDecoration: "none",
     color: "black",
+  },
+  link : {
+    textDecoration: 'none',
+    color:"grey",
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
 }));
 
@@ -113,7 +121,7 @@ const AddUser = (props) => {
             />
           </Grid>
           {emailError && (
-            <FormHelperText className={classes.error}>Required</FormHelperText>
+            <FormHelperText className={classes.error}>Incorrect Email</FormHelperText>
           )}
           <Grid item>
             <TextField
@@ -139,10 +147,10 @@ const AddUser = (props) => {
             </Button>
           </Grid>
           <Grid item>
-            <Typography onClick={props.formManipulate} variant="subtitle2">
-              {/* <Link to="/Signup" className={classes.LinkColor}> */}
+            <Typography onClick={props.formManipulate} variant="subtitle2" className={classes.link}>
+               {/* <Link to="/signin" className={classes.LinkColor}> */}
               Create an Account?
-              {/* </Link> */}
+               {/* </Link> */}
             </Typography>
           </Grid>
         </Grid>
