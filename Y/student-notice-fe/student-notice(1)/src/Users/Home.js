@@ -64,20 +64,20 @@ const Home = () => {
             respected Shri Babubhai Madhavbhai Patel a great human being and
             renowned businessman from USA.
             <br />
-            At BMIIT we focus on holistic development of student. We not only
+            At The Smith school we focus on holistic development of student. We not only
             insist on academic growth of the students but we cultivate moral
             values and ethics among them which help them to lead a successful
             life, both professional and personal. The same can be reflected in
-            the tagline of BMIIT - Make it happen through innovation and values.
+            the tagline of The Smith School - Make it happen through innovation and values.
             <br />
-            At BMIIT we are following an advanced curriculum, and again it is
+            At The Smith School we are following an advanced curriculum, and again it is
             updated time to time according to the demanding needs of the IT
             industry. By adhering to the UGC standards of curriculum, we at
-            BMIIT follows CBCS (Choice Based Credit System) based curriculum
+            The Smith School follows CBCS (Choice Based Credit System) based curriculum
             whilst incorporating subjects that result into holistic academic
             curriculum.
             <br />
-            BMIIT is furnished with state of the art infrastructure. All class
+            The Smith School is furnished with state of the art infrastructure. All class
             rooms are equipped with projector, Wi-Fi access. Laboratories are
             also equipped with around 200 high configuration computers and audio
             visual tools to provide better learning environment.

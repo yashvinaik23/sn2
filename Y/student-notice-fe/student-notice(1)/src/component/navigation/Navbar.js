@@ -8,11 +8,14 @@ import {
   CssBaseline,
   Typography,
   makeStyles,
-  useTheme,
+  useTheme,Menu,
+  MenuItem,
   useMediaQuery,
   Button,
   Modal,
+
 } from "@material-ui/core";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import AddUser from "../../Users/AddUser";
@@ -54,6 +57,15 @@ function Navbar() {
   const user = useSelector((state) => state.user.user);
   const [openLogIn, setOpenLogIn] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   const handleOpenLogIn = () => {
     setOpenLogIn(true);
@@ -102,9 +114,25 @@ function Navbar() {
                 <Link to="/contact" className={classes.link}>
                   Contact
                 </Link>
-                <Link to="/Logout" className={classes.link}>
+                <div>
+      <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+        <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+      </Menu>
+    </div>
+                {/* <Link to="/Logout" className={classes.link}>
                   Log Out
-                </Link>
+                </Link> */}
               </>
             )}
 
@@ -141,36 +169,6 @@ function Navbar() {
               </>
             )}
 
-            {/* <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-              onClick={handleClick}
-            >
-              <MenuIcon />
-            </IconButton>
-            <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                "aria-labelledby": "demo-customized-button",
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={AddUser} disableRipple>
-                Log In
-              </MenuItem>
-              <MenuItem onClick={handleClose} disableRipple>
-                Sign In
-              </MenuItem>
-
-              <MenuItem onClick={handleClose} disableRipple>
-                Log Out
-              </MenuItem>
-            </StyledMenu> */}
           </div>
         )}
       </Toolbar>
