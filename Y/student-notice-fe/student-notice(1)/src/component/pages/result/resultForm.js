@@ -122,7 +122,7 @@ const ResultForm = props => {
       justifyContent: 'center',
       // Change the size to fit the parent element of this div
       width: '100%',
-      height: '100%',
+      // height: '100%',
     }}>
     {notification && <SnackbarUI message={notification.message} />}
     <Paper elevation={3} className={classes.body}>

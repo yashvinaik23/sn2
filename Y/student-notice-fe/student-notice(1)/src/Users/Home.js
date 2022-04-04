@@ -5,7 +5,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 const Home = () => {
   return (
-    <Fragment>
+    <div>
       <div className={classes.login}></div>
       <div>
         <div className={classes.text}>
@@ -84,7 +84,7 @@ const Home = () => {
           </p>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

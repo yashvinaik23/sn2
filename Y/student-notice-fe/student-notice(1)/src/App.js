@@ -13,6 +13,7 @@ import Home from "./Users/Home";
 import Result from "./component/pages/result/result";
 import Contact from "./component/pages/contact/Contact";
 import Form from "./Users/Form";
+import Profile from "./Users/Profile";
 import SignIn from "./Users/signIn";
 // import classes from "./App.module.css";
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/result" component={Result} />
             <Route path="/contact" component={Contact} />
             <Route path="/logout" component={Content} />
+            <Route path="/profile" component={Profile} />
           </>
         )}
         <Route exact path="/login" component={Form} />

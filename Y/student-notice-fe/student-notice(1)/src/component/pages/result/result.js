@@ -8,10 +8,10 @@ const Result = () => {
   const user = useSelector(state => state.user.user);
 
   return (
-    <Fragment>
+    <div style={{height:'inherit',display: 'inline'}}>
       {user.position === "Student" && <AvailableResults />}
       {user.position === "Teacher" && <ResultForm />}
-    </Fragment>
+    </div>
   );
 };
 

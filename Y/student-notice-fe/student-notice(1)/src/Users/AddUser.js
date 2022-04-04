@@ -81,7 +81,7 @@ const AddUser = (props) => {
     props?.LogInUser(user);
 
     const handleClick = () => {
-      history.push("/home");
+      history.push("/holiday");
     };
     handleClick();
   };

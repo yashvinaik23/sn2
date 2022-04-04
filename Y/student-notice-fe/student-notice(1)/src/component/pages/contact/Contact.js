@@ -8,10 +8,10 @@ const Contact = () => {
   const user = useSelector(state => state.user.user);
 
   return (
-    <Fragment>
+    <div style={{height:'inherit',display: 'inline'}}>
       {user.position === "Teacher" && <ContactForm />}
       <AvailableContact />
-    </Fragment>
+    </div>
   );
 };
 

@@ -8,14 +8,18 @@ import {
   CssBaseline,
   Typography,
   makeStyles,
-  useTheme,Menu,
+  useTheme,
+  Menu,
   MenuItem,
   useMediaQuery,
   Button,
   Modal,
-
+  IconButton,
+  Avatar,
+  ClickAwayListener,
+  Paper
 } from "@material-ui/core";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import AddUser from "../../Users/AddUser";
@@ -41,10 +45,15 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
     fontSize: "20px",
+    marginTop: "17px",
     marginLeft: theme.spacing(10),
     "&:hover": {
       color: "yellow",
       borderBottom: "1px solid white",
+    },
+    menu: {
+      textDecoration: "none",
+      color: "black !important",
     },
   },
 }));
@@ -81,11 +90,11 @@ function Navbar() {
   };
 
   const formManipulate = () => {
-    if(openLogIn) {
+    if (openLogIn) {
       setOpenLogIn(false);
       setOpenSignIn(true);
     }
-    if(openSignIn) {
+    if (openSignIn) {
       setOpenSignIn(false);
       setOpenLogIn(true);
     }
@@ -114,22 +123,52 @@ function Navbar() {
                 <Link to="/contact" className={classes.link}>
                   Contact
                 </Link>
-                <div>
-      <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-        <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
-      </Menu>
-    </div>
+                {/* <div> */}
+                <IconButton
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  <Avatar
+                    style={{
+                      marginLeft: theme.spacing(4),
+                      marginRight: theme.spacing(2),
+                    }}
+                    src="/broken-image.jpg"
+                  />
+                </IconButton>
+                
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                  style={{marginLeft:"20px", marginTop:"15px"}}
+                  // style={{color:"white"}}
+                  // className={classes.link}
+                >
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    to="/profile"
+                  >
+                    <MenuItem>Edit Profile</MenuItem>
+                  </Link>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    to="/Logout"
+                  >
+                    <MenuItem>Logout</MenuItem>
+                  </Link>
+                </Menu>
+       
+                {/* </div> */}
                 {/* <Link to="/Logout" className={classes.link}>
                   Log Out
                 </Link> */}
@@ -138,7 +177,7 @@ function Navbar() {
 
             {!isLogin && (
               <>
-                <Button className={classes.link} onClick={handleOpenLogIn}>
+                <Button className={classes.link} style={{marginTop:"5px"}} onClick={handleOpenLogIn}>
                   Log In
                 </Button>
                 <Modal
@@ -152,7 +191,7 @@ function Navbar() {
                     formManipulate={formManipulate}
                   />
                 </Modal>
-                <Button className={classes.link} onClick={handleOpenSignIn}>
+                <Button className={classes.link} style={{marginTop:"5px"}} onClick={handleOpenSignIn}>
                   Sign Up
                 </Button>
                 <Modal
@@ -168,7 +207,6 @@ function Navbar() {
                 </Modal>
               </>
             )}
-
           </div>
         )}
       </Toolbar>

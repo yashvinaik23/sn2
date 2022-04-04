@@ -9,11 +9,11 @@ const Holiday = () => {
   const user = useSelector(state => state.user.user);
 
   return (
-    <Fragment>
+    <div style={{height:'inherit',display: 'inline'}}>
       <HolidaysSummary />
       {user.position === "Teacher" && <HolidayForm />}
       <AvailableHolidays />
-    </Fragment>
+    </div>
   );
 };
 

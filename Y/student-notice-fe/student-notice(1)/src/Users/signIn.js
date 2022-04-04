@@ -118,7 +118,7 @@ const SignIn = props => {
     props?.SignUpUser(user);
 
     const handleClick = () => {
-      history.push("/home");
+      history.push("/holiday ");
     };
     handleClick();
   };
@@ -175,7 +175,7 @@ const SignIn = props => {
             type="text"
             label="Username"
             className={classes.inputBox}
-            
+            inputRef={nameRef}
           />
         </Grid>
         <Grid item>
@@ -184,7 +184,7 @@ const SignIn = props => {
             type="email"
             label="Email"
             className={classes.inputBox}
-            
+            inputRef={emailRef}
           />
         </Grid>
         <Grid item>
@@ -192,6 +192,7 @@ const SignIn = props => {
             id="password"
             type="password"
             label="Password"
+            inputRef={passwordRef}
             className={classes.inputBox}/>
         </Grid>
         <Grid item>
@@ -200,6 +201,7 @@ const SignIn = props => {
             type="text"
             label="Contact Number"
             className={classes.inputBox} 
+            inputRef={contactRef}
           />
         </Grid>
         <Grid item>
@@ -207,7 +209,8 @@ const SignIn = props => {
             id="Address"
             type="text"
             label="Address"
-            className={classes.inputBox}            
+            className={classes.inputBox}  
+            inputRef={addressRef}          
           />
         </Grid>
         <Grid item>
@@ -215,7 +218,7 @@ const SignIn = props => {
             <InputLabel>Type</InputLabel>
             <Select
               id="types"
-              ref={posRef}
+              inputRef={posRef}
             >
               <MenuItem value="Student">Student</MenuItem>
               <MenuItem value="Teacher">Teacher</MenuItem>
