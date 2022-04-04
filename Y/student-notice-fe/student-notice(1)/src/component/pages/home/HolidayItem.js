@@ -71,7 +71,7 @@ const HolidayItem = (props) => {
       <Card container className={classes.root}>
         {user.position === "Teacher" && (
           <CardActions className={classes.action}>
-            <IconButton onClick={props.onDelete}>
+            <IconButton>
               <DeleteIcon className={classes.icon} />
             </IconButton>
           </CardActions>

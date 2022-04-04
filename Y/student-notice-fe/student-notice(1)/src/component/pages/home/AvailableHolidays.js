@@ -62,43 +62,6 @@ const AvailableHolidays = (props) => {
     getHoliday();
   }, []);
 
-  const handleClose = () => {
-    setOpen({ open: false, id: null });
-  };
-
-  const deleteHandler = (id) => {
-    props?.DeleteHoliday(id);
-    setOpen({ open: false, id: null });
-  };
-
-  const onDelete = (id) => {
-    setOpen({ open: true, id: id });
-
-    <Dialog
-      fullScreen={fullScreen}
-      open={open.open}
-      onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
-    >
-      <DialogTitle id="responsive-dialog-title">
-        {"Confirm the action"}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Are You Sure You Want to Delete this Holiday?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button onClick={deleteHandler(id)} autoFocus>
-          Delete
-        </Button>
-      </DialogActions>
-    </Dialog>;
-  };
-
   return (
     <section style={{ position: "relative" }}>
       <>
@@ -115,7 +78,6 @@ const AvailableHolidays = (props) => {
               name={meal.name}
               description={meal.description}
               date={meal.date}
-              onDelete={onDelete(meal._id)}
             />
           ))}
         </Grid>
