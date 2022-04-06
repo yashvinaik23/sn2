@@ -3,9 +3,11 @@ const userRouter = require("./routers/user");
 const resultRouter = require("./routers/results");
 const holidayRouter = require("./routers/holiday");
 const contactRouter = require("./routers/contact");
+const path=require("path")
 var cors = require("cors");
-const { Model } = require("mongoose");
+
 require("./Database/mongoose");
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -15,10 +17,13 @@ app.use(userRouter);
 app.use(resultRouter);
 app.use(holidayRouter);
 app.use(contactRouter);
+app.use("/public", express.static(path.join(__dirname, "/routers/public")));
+console.log("path",path.join(__dirname, "/routers/public"))
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);
 });
+
 
 const results = require("./models/results");
 const User = require("./models/user");

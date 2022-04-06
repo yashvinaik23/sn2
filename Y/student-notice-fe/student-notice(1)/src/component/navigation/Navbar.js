@@ -26,6 +26,8 @@ import AddUser from "../../Users/AddUser";
 import SignIn from "../../Users/signIn";
 import logo from "../../UI/image/logo.png";
 
+const BASE_URL="http://localhost:8000/public/";
+
 const useStyles = makeStyles((theme) => ({
   navlinks: {
     marginLeft: theme.spacing(2),
@@ -64,6 +66,7 @@ function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLogin = useSelector((state) => state.logIn.isLoggedIn);
   const user = useSelector((state) => state.user.user);
+  // const img=user.Image.path;
   const [openLogIn, setOpenLogIn] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -134,8 +137,10 @@ function Navbar() {
                       marginLeft: theme.spacing(4),
                       marginRight: theme.spacing(2),
                     }}
-                    src="/broken-image.jpg"
-                  />
+                    // src="/broken-image.jpg"
+                    // src="/img"
+                    src={`${BASE_URL}${user.Image}`}
+                    alt="/broken-image.jpg"                />
                 </IconButton>
                 
                 <Menu

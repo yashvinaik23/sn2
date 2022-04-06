@@ -1,29 +1,48 @@
-const path = require('path');
+// const path = require('path');
 const multer = require('multer');
+const path = require('path');
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cd) => {
-//     cd(nill, 'uploads/');
+// const upload = multer({
+//   dest: 'uploads',
+//   fileFilter: (req, file, callback) => {
+//     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+//       return callback(new Error('Please Upload Image'));
+//     } else {
+//       console.log('Image Uploaded');
+//     }
+//     callback(undefined, true);
 //   },
-//   filename: (req, flie, cd) => {
-//     let ext = path.extname(flie.originalname);
-//     cd(null, Date.now() + ext);
+//   limits: {
+//     fileSize: 100000000,
 //   },
 // });
 
-const upload = multer({
-  dest: 'uploads',
-  fileFilter: (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return callback(new Error('Please Upload Image'));
-    } else {
-      console.log('Image Uploaded');
-    }
-    callback(undefined, true);
+// module.exports = upload;
+
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname, '/uploads/'));
   },
-  limits: {
-    fileSize: 100000000,
-  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  }
 });
 
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 module.exports = upload;

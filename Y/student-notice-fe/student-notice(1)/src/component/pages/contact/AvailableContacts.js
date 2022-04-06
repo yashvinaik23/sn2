@@ -100,38 +100,27 @@ const AvailableContacts = props => {
   ));
 
   return (
-    // <div>
-    <section style={{position:"relative"}}>
-      <>
-        <div style={{display: "flex",}}>{contactList}</div>
-      </>
-    </section>
-  // </div>
-
-      // <Dialog
-      //   fullScreen={fullScreen}
-      //   open={open.open}
-      //   onClose={handleClose}
-      //   aria-labelledby="responsive-dialog-title"
-      // > 
-      //    <DialogTitle id="responsive-dialog-title">
-      //     {"Confirm the action"}
-      //   </DialogTitle>
-      //   <DialogContent>
-      //     <DialogContentText>
-      //       Are You Sure You Want to Delete Data?
-      //     </DialogContentText>
-      //   </DialogContent>
-      //   <DialogActions>
-      //     <Button autoFocus onClick={handleClose}>
-      //       Cancel
-      //     </Button>
-      //     <Button onClick={() => deleteHandler(open.id)} autoFocus>
-      //       Delete
-      //     </Button>
-      //   </DialogActions>
-      // </Dialog> 
-  
+    <section style={{ position: "relative" }}>
+    <>
+      {/* <div style={{display: "flex"}}>{holidaysList}</div> */}
+      <Grid
+        container
+        spacing={3}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        {/* {props?.holidays.map((meal) => (
+          <HolidayItem
+            key={meal._id}
+            id={meal._id}
+            name={meal.name}
+            description={meal.description}
+            date={meal.date}
+          />
+        ))} */}
+        <ContactItem/>
+      </Grid>
+    </>
+  </section>
   );
 };
 const mapStateToProps = state => {

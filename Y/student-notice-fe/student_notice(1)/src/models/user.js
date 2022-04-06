@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
   },
    Image: {
-      type: String,
+      type: Object,
       // required: true,
       trim: true,
     },
@@ -39,13 +39,12 @@ const userSchema = new mongoose.Schema({
   },
   contact: {
     type: Number,
-    required: true,
+    // required: true,
     length: 10,
     trim: true,
   },
   position: { type: String, required: true },
-  address: { type: String, required: true, trim: true },
-  file: { type: String },
+  address: { type: String,  trim: true },
   tokens: [
     {
       token: {
