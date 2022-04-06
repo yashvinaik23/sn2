@@ -80,18 +80,18 @@ router.get("/users/:id", auth, async (req, res) => {
 // });
 
 router.patch("/updateuser/:id", upload.single("Image"), async (req, res) => {
-  console.log(req.body, req.file.originalname);
+  console.log(req.body, req.file);
   const id = req.params.id;
 
   try {
     let filePath = req.file.path.split("/")
     const user = await User.findByIdAndUpdate(id, {
-      // name: req.body.name,
-      // email: req.body.email,
-      // password: req.body.password,
-      // contact: req.body.contact,
-      // address: req.body.address,
-      ...req.body,
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      contact: req.body.contact,
+      address: req.body.address,
+      // ...req.body,
       Image: filePath[filePath.length - 1],
     });
 

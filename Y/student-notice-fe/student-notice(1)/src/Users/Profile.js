@@ -1,8 +1,9 @@
-import React, { useState, useRef ,useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { EditUser } from "../actions/actions";
 import {
   Grid,
   Paper,
@@ -51,28 +52,52 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Profile = () => {
+const Profile = (props) => {
   const classes = useStyles();
   const user = useSelector((state) => state.user.user);
-  const nameRef = useRef(user.name);
-  const emailRef = useRef(user.email);
-  const passwordRef = useRef("");
-  const contactRef = useRef(user.contact);
-  const addressRef = useRef(user.address);
-  const profileRef=useRef("");
-  console.log(nameRef); 
+  // const nameRef = useRef(user.name);
+  // const emailRef = useRef(user.email);
+  // const passwordRef = useRef("");
+  // const contactRef = useRef(user.contact);
+  // const addressRef = useRef(user.address);
+  // const profileRef=useRef("");
+  // const imageRef=useRef();
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.passwoed);
+  const [contact, setContact] = useState(user.contact);
+  const [address, setAddress] = useState(user.address);
+  const [profile, setProfile] = useState();
+
+  const handleFile = (e) => {
+    // Getting the files from the input
+    let files = e.target.files;
+    console.log(files[0])
+    setProfile(files[0]);
+  };
 
   const addUserHandler = (event) => {
     event.preventDefault();
 
-    const user = {
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      contact: contactRef.current.value,
-      address: addressRef.current.value,
-    //   position: posRef.current.value,
-    };
+    // const user2 = {
+    //   name,
+    //   email,
+    //   contact,
+    //   address,
+    //   Image:profile
+    // //   position: posRef.current.value,
+    // };
+
+    let formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("contact", contact);
+    formData.append("address", address);
+    formData.append("Image", profile);
+    console.log(name, email,contact,address,profile);
+    console.log(formData);
+    // console.log(user)
+    props?.EditUser(formData, user._id);
 
     // props?.SignUpUser(user);
 
@@ -98,7 +123,7 @@ const Profile = () => {
         <Grid container direction="column" spacing={4} alignItems="center">
           <Grid item>
             <Typography variant="h4" component="h2">
-              Update Profile    
+              Update Profile
             </Typography>
           </Grid>
           <Grid item>
@@ -107,8 +132,10 @@ const Profile = () => {
               type="text"
               label="Username"
               className={classes.inputBox}
-              inputRef={nameRef}
-              value={nameRef.current}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              value={name}
             />
           </Grid>
           <Grid item>
@@ -117,27 +144,31 @@ const Profile = () => {
               type="email"
               label="Email"
               className={classes.inputBox}
-              inputRef={emailRef}
-              value={emailRef.current}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
             />
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <TextField
               id="password"
               type="password"
               label="Password"
               inputRef={passwordRef}
               className={classes.inputBox}
-            />
-          </Grid>
+            /> 
+          </Grid> */}
           <Grid item>
             <TextField
               id="contact"
               type="text"
               label="Contact Number"
               className={classes.inputBox}
-              inputRef={contactRef}
-              value={contactRef.current}
+              onChange={(e) => {
+                setContact(e.target.value);
+              }}
+              value={contact}
             />
           </Grid>
           <Grid item>
@@ -146,8 +177,10 @@ const Profile = () => {
               type="text"
               label="Address"
               className={classes.inputBox}
-              inputRef={addressRef}
-              value={addressRef.current}
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+              value={address}
             />
           </Grid>
           <Grid item>
@@ -156,7 +189,8 @@ const Profile = () => {
               type="file"
               label="Profile"
               className={classes.inputBox}
-              inputRef={profileRef}
+              onChange={(e) => handleFile(e)}
+              // value={profile}
             />
           </Grid>
           <Grid item>
@@ -167,7 +201,7 @@ const Profile = () => {
               type="submit"
               onClick={addUserHandler}
             >
-              Signup
+              Edit
             </Button>
           </Grid>
         </Grid>
@@ -180,6 +214,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       // SignUpUser: user => SignUpUser(user),
+      EditUser: (user, id) => EditUser(user, id),
     },
     dispatch
   );

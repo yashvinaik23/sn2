@@ -3,17 +3,17 @@ import { loginActions } from "../store/logIn";
 import { userAction } from "../store/user";
 import { toast } from "react-toastify";
 
-const BASE_URL="http://localhost:8000";
+const BASE_URL = "http://localhost:8000";
 
 export function SignUpUser(user) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       let response = await axios.post(`${BASE_URL}/reg`, user);
       if (response.status === 201) {
         dispatch(loginActions.login());
         dispatch(userAction.signIn(response.data.user));
         dispatch(userAction.teacher());
-        toast.success("Successfully sign In!")
+        toast.success("Successfully sign In!");
       } else {
         alert("Something went wrong please check inputs and try again");
         toast.error("Something went wrong please check inputs and try again");
@@ -24,13 +24,11 @@ export function SignUpUser(user) {
   };
 }
 
-export const LogInUser = user => {
-  return async dispatch => {
+export const LogInUser = (user) => {
+  return async (dispatch) => {
+   
     try {
-      let response = await axios.post(
-        `${BASE_URL}/users/login`,
-        user
-      );
+      let response = await axios.post(`${BASE_URL}/users/login`, user);
       if (response.status === 200) {
         dispatch(loginActions.login());
 
@@ -47,14 +45,30 @@ export const LogInUser = user => {
   };
 };
 
-
-
-export const PostResult = result => {
-  return async dispatch => {
+export const EditUser = (user, id) => {
+  console.log(user, id);
+  return async (dispatch) => {
+    console.log(`${BASE_URL}/updateuser/${id}`)
     try {
-      let response = await axios.get(
-        `${BASE_URL}/getbyid/${result.email}`
-      );
+      let response = await axios.patch(`${BASE_URL}/updateuser/${id}`, user);
+      console.log(response);
+      if (response.status === 200) {
+        dispatch(userAction.editUser(response.data.user));
+        toast.success("Successfully Logged in!");
+      } else {
+        alert("User not found");
+        toast.error("User not found");
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+};
+
+export const PostResult = (result) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.get(`${BASE_URL}/getbyid/${result.email}`);
       const result1 = {
         subject: result.subject,
         marks: result.marks,
@@ -81,13 +95,13 @@ export const PostResult = result => {
           message: "Something went wrong",
         })
       );
-      toast.error("Something went wrong")
+      toast.error("Something went wrong");
     }
   };
 };
 
-export const PostContact = contact => {
-  return async dispatch => {
+export const PostContact = (contact) => {
+  return async (dispatch) => {
     try {
       let response = await axios.post(`${BASE_URL}/contact`, contact);
       if (response.status === 201) {
@@ -99,7 +113,7 @@ export const PostContact = contact => {
             message: "Contact added Successfully!",
           })
         );
-        toast.success("Contact added Successfully!")
+        toast.success("Contact added Successfully!");
       } else {
         dispatch(loginActions.openN());
         dispatch(
@@ -116,8 +130,8 @@ export const PostContact = contact => {
   };
 };
 
-export const PostHoliday = holiday => {
-  return async dispatch => {
+export const PostHoliday = (holiday) => {
+  return async (dispatch) => {
     try {
       let response = await axios.post(`${BASE_URL}/holiday`, holiday);
 
@@ -130,7 +144,7 @@ export const PostHoliday = holiday => {
             message: "Holiday added Successfully!",
           })
         );
-        toast.success("Holiday added Successfully!")
+        toast.success("Holiday added Successfully!");
       } else {
         dispatch(loginActions.openN());
         dispatch(
@@ -148,7 +162,7 @@ export const PostHoliday = holiday => {
 };
 
 export const GetContact = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       let response = await axios.get(`${BASE_URL}/getcontact`);
       if (response.status === 404) {
@@ -169,7 +183,7 @@ export const GetContact = () => {
 };
 
 export const GetHoliday = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       let response = await axios.get(`${BASE_URL}/getholiday`);
 
@@ -190,12 +204,10 @@ export const GetHoliday = () => {
   };
 };
 
-export const GetResult = user => {
-  return async dispatch => {
+export const GetResult = (user) => {
+  return async (dispatch) => {
     try {
-      let response = await axios.get(
-        `${BASE_URL}/results/${user._id}`
-      );
+      let response = await axios.get(`${BASE_URL}/results/${user._id}`);
 
       if (response.status === 404) {
         dispatch(loginActions.openN());
@@ -215,8 +227,8 @@ export const GetResult = user => {
   };
 };
 
-export const DeleteHoliday = id => {
-  return async dispatch => {
+export const DeleteHoliday = (id) => {
+  return async (dispatch) => {
     try {
       let response = await axios.delete(`${BASE_URL}/holiday/${id}`);
 
@@ -238,8 +250,8 @@ export const DeleteHoliday = id => {
   };
 };
 
-export const DeleteContact = id => {
-  return async dispatch => {
+export const DeleteContact = (id) => {
+  return async (dispatch) => {
     try {
       let response = await axios.delete(`${BASE_URL}/contact/${id}`);
       if (response.status === 200) {

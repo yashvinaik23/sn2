@@ -8,9 +8,9 @@ const initialUserState = {
   isTeacher: false,
   position: "",
 };
-if (localStorage.getItem("user")) {
-  initialUserState.user = JSON.parse(localStorage.getItem("user"));
-}
+// if (localStorage.getItem("user")) {
+//   initialUserState.user = JSON.parse(localStorage.getItem("user"));
+// }
 
 const userSlice = createSlice({
   name: "user",
@@ -27,6 +27,9 @@ const userSlice = createSlice({
     },
     logOut() {
       localStorage.removeItem("user");
+    },
+    editUser(state, action) {
+      state.user = action.payload;
     },
     storeHoliday(state, action) {
       state.holiday = action.payload;
@@ -48,12 +51,12 @@ const userSlice = createSlice({
     },
     deleteHoliday(state, action) {
       state.holiday = state.holiday.filter(
-        arrow => arrow._id !== action.payload._id
+        (arrow) => arrow._id !== action.payload._id
       );
     },
     deleteContact(state, action) {
       state.contact = state.contact.filter(
-        arrow => arrow._id !== action.payload._id
+        (arrow) => arrow._id !== action.payload._id
       );
     },
   },
