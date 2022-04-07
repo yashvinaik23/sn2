@@ -51,9 +51,10 @@ export const EditUser = (user, id) => {
     console.log(`${BASE_URL}/updateuser/${id}`)
     try {
       let response = await axios.patch(`${BASE_URL}/updateuser/${id}`, user);
-      console.log(response);
+      console.log(response.data);
+      console.log(response.data.user);
       if (response.status === 200) {
-        dispatch(userAction.editUser(response.data.user));
+        dispatch(userAction.editUser(response.data));
         toast.success("Successfully Logged in!");
       } else {
         alert("User not found");
