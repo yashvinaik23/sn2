@@ -1,5 +1,5 @@
-import { width } from "@mui/system";
-import React, { Fragment } from "react";
+
+import React from "react";
 import classes from "./Home.module.css";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";

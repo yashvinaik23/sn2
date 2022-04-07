@@ -16,17 +16,17 @@ import {
   Modal,
   IconButton,
   Avatar,
-  ClickAwayListener,
-  Paper
+  Divider,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import AddUser from "../../Users/AddUser";
 import SignIn from "../../Users/signIn";
 import logo from "../../UI/image/logo.png";
+import image from "../../UI/image/images.png"
 
-const BASE_URL="http://localhost:8000/public/";
+const BASE_URL = "http://localhost:8000/public/";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -42,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     flexGrow: "1",
     cursor: "pointer",
+  },
+  name: {
+    textDecoration: "none",
+    color: "white",
+    fontSize: "20px",
+    marginTop: "17px",
   },
   link: {
     textDecoration: "none",
@@ -66,7 +72,6 @@ function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isLogin = useSelector((state) => state.logIn.isLoggedIn);
   const user = useSelector((state) => state.user.user);
-  // const img=user.Image.path;
   const [openLogIn, setOpenLogIn] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -109,7 +114,7 @@ function Navbar() {
       <Toolbar>
         <img src={logo} alt="logo" className={classes.logo2} />
         <Typography variant="h4" className={classes.logo}>
-          {isLogin ? user.name : "Student Notice"}
+          The Smith School
         </Typography>
         {isMobile ? (
           <DrawerComponent />
@@ -140,49 +145,61 @@ function Navbar() {
                     // src="/broken-image.jpg"
                     // src="/img"
                     src={`${BASE_URL}${user.Image}`}
-                    alt="/broken-image.jpg"                />
+                    alt={image}
+                  />
                 </IconButton>
                 
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleCloseMenu}
-                  style={{marginLeft:"20px", marginTop:"15px"}}
-                  // style={{color:"white"}}
-                  // className={classes.link}
-                >
-                  <Link
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleCloseMenu}
                     style={{
-                      textDecoration: "none",
-                      color: "black",
+                      borderRadius: "15px",
+                      marginLeft: "20px",
+                      marginTop: "14px",
                     }}
-                    to="/profile"
                   >
-                    <MenuItem>Edit Profile</MenuItem>
-                  </Link>
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: "black",
-                    }}
-                    to="/Logout"
-                  >
-                    <MenuItem>Logout</MenuItem>
-                  </Link>
-                </Menu>
-       
-                {/* </div> */}
-                {/* <Link to="/Logout" className={classes.link}>
-                  Log Out
-                </Link> */}
+                    <Typography
+                      style={{
+                        textDecoration: "none",
+                        color: "black",
+                        textAlign: "center",
+                      }}
+                    >
+                      {user.name}
+                    </Typography>
+                    <Divider />
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: "black",
+                      }}
+                      to="/profile"
+                    >
+                      <MenuItem>Edit Profile</MenuItem>
+                    </Link>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: "black",
+                      }}
+                      to="/Logout"
+                    >
+                      <MenuItem>Log Out</MenuItem>
+                    </Link>
+                  </Menu>
               </>
             )}
 
             {!isLogin && (
               <>
-                <Button className={classes.link} style={{marginTop:"5px"}} onClick={handleOpenLogIn}>
+                <Button
+                  className={classes.link}
+                  style={{ marginTop: "5px" }}
+                  onClick={handleOpenLogIn}
+                >
                   Log In
                 </Button>
                 <Modal
@@ -196,7 +213,11 @@ function Navbar() {
                     formManipulate={formManipulate}
                   />
                 </Modal>
-                <Button className={classes.link} style={{marginTop:"5px"}} onClick={handleOpenSignIn}>
+                <Button
+                  className={classes.link}
+                  style={{ marginTop: "5px" }}
+                  onClick={handleOpenSignIn}
+                >
                   Sign Up
                 </Button>
                 <Modal

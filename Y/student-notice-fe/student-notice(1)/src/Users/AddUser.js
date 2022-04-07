@@ -10,11 +10,7 @@ import {
   TextField,
   makeStyles,
   FormHelperText,
-  Link,
-  Modal,
-  IconButton,
 } from "@material-ui/core";
-import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import { LogInUser } from "../actions/actions";
 
 const useStyles = makeStyles(() => ({
@@ -41,12 +37,12 @@ const useStyles = makeStyles(() => ({
     textDecoration: "none",
     color: "black",
   },
-  link : {
-    textDecoration: 'none',
-    color:"grey",
-    '&:hover': {
-      textDecoration: 'underline'
-    }
+  link: {
+    textDecoration: "none",
+    color: "grey",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 }));
 
@@ -94,17 +90,9 @@ const AddUser = (props) => {
         alignItems: "center",
         justifyContent: "right",
         margin: "50px 350px",
-        // Change the size to fit the parent element of this div
-        // width: "100%",
-        // height: "100%",
       }}
     >
       <Paper elevation={3} className={classes.body}>
-        {/* <Grid container justify="space-between" alignItems="center">
-          <IconButton onClick={() => props.handleClose()}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </Grid> */}
         <Grid container direction="column" spacing={4} alignItems="center">
           <Grid item>
             <Typography variant="h4" component="h2">
@@ -121,7 +109,9 @@ const AddUser = (props) => {
             />
           </Grid>
           {emailError && (
-            <FormHelperText className={classes.error}>Incorrect Email</FormHelperText>
+            <FormHelperText className={classes.error}>
+              Incorrect Email
+            </FormHelperText>
           )}
           <Grid item>
             <TextField
@@ -147,10 +137,12 @@ const AddUser = (props) => {
             </Button>
           </Grid>
           <Grid item>
-            <Typography onClick={props.formManipulate} variant="subtitle2" className={classes.link}>
-               {/* <Link to="/signin" className={classes.LinkColor}> */}
+            <Typography
+              onClick={props.formManipulate}
+              variant="subtitle2"
+              className={classes.link}
+            >
               Create an Account?
-               {/* </Link> */}
             </Typography>
           </Grid>
         </Grid>
@@ -158,8 +150,6 @@ const AddUser = (props) => {
     </div>
   );
 };
-
-// export default AddUser;
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(

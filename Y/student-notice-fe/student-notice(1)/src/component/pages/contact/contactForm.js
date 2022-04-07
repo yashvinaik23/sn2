@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect, useSelector } from "react-redux";
 
@@ -18,7 +18,7 @@ import SnackbarUI from "../../../UI/snackbar";
  const useStyles = makeStyles(() => ({
   body: {
     padding: '60px 60px',
-    margin: '125px 350px',
+    margin: '30px 350px',
     border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
@@ -88,28 +88,6 @@ const ContactForm = props => {
   };
 
   return (
-    // <Fragment>
-    //   {notification && <SnackbarUI message={notification.message} />}
-    //   <Card className={classes.input}>
-    //     <form>
-    //       <label htmlFor="name">Name</label>
-    //       {nameError && <h6>Invalid Name</h6>}
-    //       <input id="name" type="text" ref={nameRef} />
-
-    //       <label htmlFor="email">Email</label>
-    //       {emailError && <h6>Invalid Email</h6>}
-    //       <input id="email" type="text" ref={emailRef} />
-
-    //       <label htmlFor="description">Description</label>
-    //       <input id="description" type="text" ref={descriptionRef} />
-    //       <label htmlFor="number">Number</label>
-
-    //       {contactError && <h6>Invalid Email</h6>}
-    //       <input id="number" type="number" ref={numberRef} />
-    //       <Button onClick={formHandler}>Submit</Button>
-    //     </form>
-    //   </Card>
-    // </Fragment>
     <div style={{
       display: 'flex',
       flexDirection: 'column',
@@ -123,8 +101,6 @@ const ContactForm = props => {
     <Paper elevation={3} className={classes.body}>
         <Grid container direction="column" spacing={4} alignItems="center">
           <Grid item>
-            {/*  Typography use for size or different heading tag */}
-  
             <Typography variant="h4" component="h2">
               Contact Form
             </Typography>

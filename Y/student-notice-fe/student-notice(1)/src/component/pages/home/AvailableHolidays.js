@@ -1,59 +1,13 @@
-import { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { useEffect} from "react";
+import { connect} from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
-import { styled } from "@mui/material/styles";
-import {
-  Grid,
-  makeStyles,
-  useTheme,
-  useMediaQuery,
-  Dialog,
-  DialogTitle,
-  DialogContentText,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import { GetHoliday } from "../../../actions/actions";
 import { DeleteHoliday } from "../../../actions/actions";
 import HolidayItem from "./HolidayItem";
 
-const useStyles = makeStyles(() => ({
-  body: {
-    padding: "60px 60px",
-    margin: "125px 350px",
-  },
-  inputBox: {
-    width: "300px",
-    margin: "-12px",
-  },
-  submitButton: {
-    width: "300px",
-    margin: "0px 15px",
-    backgroundColor: "#034f84",
-    color: "white",
-  },
-  LinkColor: {
-    textDecoration: "none",
-    color: "white",
-  },
-  tableBody: {
-    margin: "130px 300px",
-  },
-  heading: {
-    marginBottom: "60px ",
-    align: "center",
-  },
-}));
-
 const AvailableHolidays = (props) => {
-  const classes = useStyles();
-  const [open, setOpen] = useState({ open: false, id: "" });
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const user = useSelector((state) => state.user.user);
 
   const getHoliday = async () => {
     await props?.GetHoliday();
@@ -64,24 +18,24 @@ const AvailableHolidays = (props) => {
 
   return (
     <section style={{ position: "relative" }}>
-      <>
-        {/* <div style={{display: "flex"}}>{holidaysList}</div> */}
-        <Grid
-          container
-          spacing={3}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          {props?.holidays.map((meal) => (
-            <HolidayItem
-              key={meal._id}
-              id={meal._id}
-              name={meal.name}
-              description={meal.description}
-              date={meal.date}
-            />
-          ))}
-        </Grid>
-      </>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        {props?.holidays.map((meal) => (
+          <HolidayItem
+            key={meal._id}
+            id={meal._id}
+            name={meal.name}
+            description={meal.description}
+            date={meal.date}
+          />
+        ))}
+      </Grid>
     </section>
   );
 };

@@ -56,7 +56,7 @@ const userSlice = createSlice({
     teacher(state) {
       state.isTeacher = true;
     },
-    deleteHoliday(state, action) {
+    deleteHoliday(state, action) { 
       state.holiday = state.holiday.filter(
         (arrow) => arrow._id !== action.payload._id
       );

@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { EditUser } from "../actions/actions";
 import {
   Grid,
@@ -11,12 +10,7 @@ import {
   Button,
   TextField,
   makeStyles,
-  FormHelperText,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Link,
+ 
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -55,16 +49,8 @@ const useStyles = makeStyles(() => ({
 const Profile = (props) => {
   const classes = useStyles();
   const user = useSelector((state) => state.user.user);
-  // const nameRef = useRef(user.name);
-  // const emailRef = useRef(user.email);
-  // const passwordRef = useRef("");
-  // const contactRef = useRef(user.contact);
-  // const addressRef = useRef(user.address);
-  // const profileRef=useRef("");
-  // const imageRef=useRef();
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.passwoed);
   const [contact, setContact] = useState(user.contact);
   const [address, setAddress] = useState(user.address);
   const [profile, setProfile] = useState();
@@ -78,15 +64,6 @@ const Profile = (props) => {
 
   const addUserHandler = (event) => {
     event.preventDefault();
-
-    // const user2 = {
-    //   name,
-    //   email,
-    //   contact,
-    //   address,
-    //   Image:profile
-    // //   position: posRef.current.value,
-    // };
 
     let formData = new FormData();
     formData.append("name", name);

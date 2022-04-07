@@ -76,7 +76,6 @@ router.patch("/updateuser/:id", upload.single("Image"), async (req, res) => {
       password: req.body.password,
       contact: req.body.contact,
       address: req.body.address,
-      // ...req.body,
       Image: filePath[filePath.length - 1],
     },{new: true});
     if (user) {

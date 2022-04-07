@@ -4,11 +4,11 @@ import {
   makeStyles,
   Card,
   CardContent,
-  Typography,
-  CardHeader,
+ 
   Grid,
-  Box,
+
 } from "@material-ui/core";
+import { ToastContainer } from 'react-toastify';
 import { getDate, getMonth, getYear } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,18 +16,40 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(2),
     borderRadius: "20px",
-  },
-  header: {
-    backgroundColor: "#B2DFDB",
-    height: "50px",
-    borderRadius: "10px",
-    textAlign: "center",
+    position: "relative",
   },
   grid: {
-    marginTop: "20px",
-    marginBottom: "20px",
-    marginRight: "30px",
-    marginTop: "20px",
+    margin: "8px",
+  },
+  marks: {
+    backgroundColor: "#B2DFDB",
+    width: "110px",
+    height:'110px',
+    color: "gary",
+    borderRadius: "20px",
+    alignContent:'center'
+  },
+  subject: {
+    fontSize: "22px",
+    display: "flex",
+    margin: "0",
+    padding: "0",
+    textAlign: "center",
+    justifyContent: "center",
+    color: "gray",
+    marginLeft: "20px",
+    paddingTop: "10px",
+    paddingBottom: 0,
+    marginBottom: 0,
+  },
+  mark: {
+    fontSize: "28px",
+    margin: "0",
+    padding: "0",
+    textAlign: "center",
+    justifyContent: "center",
+    color: "gray",
+    marginLeft: "20px",
   },
 }));
 
@@ -38,34 +60,45 @@ const ResultItem = (props) => {
   console.log(getMonth(date), getYear(date), getDate(date), month);
 
   return (
-    <Grid
-      container
-      spacing={2}
-      direction="row"
-      justify="flex-start"
-      alignItems="flex-start"
-      className={classes.grid}
-    >
-      <Card container spacing={24} className={classes.root}>
+    <>
+    <Grid item xs={5} sm={4} md={3} className={classes.grid}>
+      <Card className={classes.root}>
         <CardContent>
-          {/* <Typography variant="h6" gutterBottom style={{ height: "100px" }}>
-            Hello World
-          </Typography> */}
-          <div>
-          <p style={{ fontSize: "54px",margin:'0',padding:'0',textAlign:'center',justifyContent:'center' }}>{getDate(date)}</p>
-          <div style={{ display: "flex",margin:'0',padding:'0',textAlign:'center',justifyContent:'center' }}>
-            <p style={{ display: "flex",margin:'0',padding:'0',textAlign:'center',justifyContent:'center'  }}>{date.toLocaleString("default", { month: "long" })} {getYear(date)}</p>
-            {/* <p style={{ display: "flex",margin:'0',padding:'0',textAlign:'center',justifyContent:'center'  }}>{` ${getYear(date)}`}</p> */}
-          </div>
+          <div style={{ display: "flex" }}>
+            <div className={classes.marks}>
+              <p
+                style={{
+                  fontSize: "58px",
+                  margin: "0",
+                  padding: "0",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  color: "gray",
+                  marginTop:'8px',
+                  // alignContent:'center'
+                }}
+              >
+                {props.status}
+              </p>
+            </div>
+            <div
+              style={{
+                display: "table-column",
+                marginLeft: "20px",
+                marginTop: "15px",
+                textAlign:'center',
+                alignContent:'center'
+              }}
+            >
+              <p className={classes.subject}> {props.subject}</p>
+              <p className={classes.mark}>{props.marks}</p>
+            </div>
           </div>
         </CardContent>
-        <CardHeader
-        //   title={props.name}
-          subheader={props.name}
-          className={classes.header}
-        />
       </Card>
     </Grid>
+    <ToastContainer />
+    </>
   );
 };
 

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { loginActions } from "../store/logIn";
 import { userAction } from "../store/user";
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export function SignUpUser(user) {
   return async (dispatch) => {
@@ -26,7 +27,6 @@ export function SignUpUser(user) {
 
 export const LogInUser = (user) => {
   return async (dispatch) => {
-   
     try {
       let response = await axios.post(`${BASE_URL}/users/login`, user);
       if (response.status === 200) {
@@ -48,13 +48,12 @@ export const LogInUser = (user) => {
 export const EditUser = (user, id) => {
   console.log(user, id);
   return async (dispatch) => {
-    console.log(`${BASE_URL}/updateuser/${id}`)
+    console.log(`${BASE_URL}/updateuser/${id}`);
     try {
       let response = await axios.patch(`${BASE_URL}/updateuser/${id}`, user);
       console.log(response.data);
       console.log(response.data.user);
       if (response.status === 200) {
-        dispatch(userAction.editUser(response.data));
         toast.success("Successfully Logged in!");
       } else {
         alert("User not found");
@@ -79,13 +78,6 @@ export const PostResult = (result) => {
 
       let res = await axios.post(`${BASE_URL}/result`, result1);
       if (res.status === 201) {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "success",
-            message: "Result added succeessfully!",
-          })
-        );
         toast.success("Result added successfully");
       }
     } catch (err) {
@@ -107,23 +99,7 @@ export const PostContact = (contact) => {
       let response = await axios.post(`${BASE_URL}/contact`, contact);
       if (response.status === 201) {
         dispatch(userAction.addContact(response.data));
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "success",
-            message: "Contact added Successfully!",
-          })
-        );
         toast.success("Contact added Successfully!");
-      } else {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "error",
-            message: "Something went wrong",
-          })
-        );
-        toast.error("Something went wrong");
       }
     } catch (err) {
       alert(err);
@@ -138,26 +114,10 @@ export const PostHoliday = (holiday) => {
 
       if (response.status === 201) {
         dispatch(userAction.addHoliday(response.data));
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "success",
-            message: "Holiday added Successfully!",
-          })
-        );
         toast.success("Holiday added Successfully!");
-      } else {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "error",
-            message: "Something went wrong!",
-          })
-        );
-        toast.error("Something went wrong");
       }
     } catch (err) {
-      alert(err);
+      toast.error("Something went wrong");
     }
   };
 };
@@ -234,15 +194,8 @@ export const DeleteHoliday = (id) => {
       let response = await axios.delete(`${BASE_URL}/holiday/${id}`);
 
       if (response.status === 200) {
-        dispatch(userAction.deleteHoliday(response.data));
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "success",
-            message: "Holiday deleted successfully!",
-          })
-        );
         toast.success("Holiday deleted successfully!");
+        dispatch(userAction.deleteHoliday(response.data));
       }
     } catch (err) {
       alert(err);

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 import { loginActions } from "./store/logIn";
 import { userAction } from "./store/user";
@@ -15,9 +16,9 @@ import Contact from "./component/pages/contact/Contact";
 import Form from "./Users/Form";
 import Profile from "./Users/Profile";
 import SignIn from "./Users/signIn";
-// import classes from "./App.module.css";
 
 function App() {
+  console.log(process.env.REACT_APP_BASE_URL);
   const isLogin = useSelector((state) => state.logIn.isLoggedIn);
 
   const dispatch = useDispatch();
@@ -28,12 +29,8 @@ function App() {
     dispatch(userAction.logOut());
 
     <Redirect to="" />;
-    // function logoutHandler() {
-    //   history.push("/");
-    // }
-
+   
     window.location.reload(false);
-    //return <div>{logoutHandler}</div>;
   }
 
   return (
@@ -52,9 +49,9 @@ function App() {
         <Route exact path="/login" component={Form} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="/" component={Home} />
-        {/* <Route path="/Signup" component={Form} /> */}
       </Switch>
       <Footer />
+      <ToastContainer />
     </Router>
   );
 }
