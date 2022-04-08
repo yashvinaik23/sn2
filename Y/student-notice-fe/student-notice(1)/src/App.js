@@ -47,7 +47,7 @@ function App() {
           </>
         )}
         <Route exact path="/login" component={Form} />
-        <Route exact path="/signin" component={SignIn} />
+        {/* <Route exact path="/signin" component={SignIn} /> */}
         <Route path="/" component={Home} />
       </Switch>
       <Footer />

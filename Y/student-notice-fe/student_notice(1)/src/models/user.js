@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
-   Image: {
-      type: Object,
-      // required: true,
-      trim: true,
-    },
+  Image: {
+    type: Object,
+    // required: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
   position: { type: String, required: true },
-  address: { type: String,  trim: true },
+  address: { type: String, trim: true },
   tokens: [
     {
       token: {
@@ -84,12 +84,12 @@ userSchema.methods.generateAuthToken = async function () {
 
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
-
+  console.log("aaaaaaaaa--->",password,user.password)
   if (!user) {
     return false;
   }
   const isMatch = await bcrypt.compare(password, user.password);
-
+  
   if (!isMatch) {
     return false;
   }
@@ -97,7 +97,26 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
-userSchema.statics.findByEmail = async email => {
+userSchema.statics.changePassword = async (id, password, newPass) => {
+  try {
+    const user = await User.findById(id);
+    //console.log("in cp", user);
+
+    if (!user) {
+      return false;
+    }
+    console.log("test-----",password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("isMatch:", isMatch);
+    if (isMatch) {
+      return user;
+    }
+  } catch (e) {
+    return false;
+  }
+};
+
+userSchema.statics.findByEmail = async (email) => {
   const user = await User.findOne({ email });
 
   if (!user) {

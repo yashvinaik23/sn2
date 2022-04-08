@@ -22,7 +22,7 @@ function Footer() {
       </div>
       <div className={classes.child}>
         <EmailOutlinedIcon className={classes.logo2} />
-        <div>contact@smith.com</div>
+        <div>smithschooluk@gmail.com</div>
       </div>
       <div className={classes.child}>
         <HomeIcon className={classes.logo2} />

@@ -15,10 +15,11 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions,useTheme,
+  DialogActions,
+  useTheme,
   useMediaQuery,
 } from "@material-ui/core";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { DeleteHoliday } from "../../../actions/actions";
 import { getDate, getYear } from "date-fns";
@@ -29,15 +30,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     borderRadius: "20px",
     position: "relative",
+    // minHeight:"300px"
   },
   header: {
     backgroundColor: "#B2DFDB",
     height: "50px",
     borderRadius: "10px",
     textAlign: "center",
+    bottom: 0,
+    position: 'sticky',
   },
   grid: {
     margin: "8px",
+    Height:"500px"
   },
   action: {
     position: "absolute",
@@ -58,14 +63,14 @@ const useStyles = makeStyles((theme) => ({
 const HolidayItem = (props) => {
   const classes = useStyles();
   const user = useSelector((state) => state.user.user);
-  const [open, setOpen] = useState({open:false,id:null});
+  const [open, setOpen] = useState({ open: false, id: null });
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const date = new Date(props.date);
 
   const handleDelete = (id) => {
     // console.log(id)
-    setOpen({open:true,id});
+    setOpen({ open: true, id });
     // console.log(open.id)
   };
 
@@ -76,7 +81,7 @@ const HolidayItem = (props) => {
   const deleteHandler = (id) => {
     // const id = props.id;
     // console.log(id)
-    console.log(id)
+    console.log(id);
     props?.DeleteHoliday(id);
     setOpen({ open: false, id: null });
   };
@@ -94,7 +99,7 @@ const HolidayItem = (props) => {
         // alignItems="flex-start"
         className={classes.grid}
       >
-        <Card  className={classes.root}>
+        <Card className={classes.root}>
           {user.position === "Teacher" && (
             <CardActions className={classes.action}>
               <IconButton onClick={() => handleDelete(props.id)}>
@@ -130,6 +135,7 @@ const HolidayItem = (props) => {
                     margin: "0",
                     padding: "0",
                     textAlign: "center",
+                    fontSize:"20px",
                     justifyContent: "center",
                   }}
                 >
@@ -137,8 +143,20 @@ const HolidayItem = (props) => {
                   {"  "}
                   {getYear(date)}
                 </p>
+               
                 {/* <p style={{ display: "flex",margin:'0',padding:'0',textAlign:'center',justifyContent:'center'  }}>{` ${getYear(date)}`}</p> */}
               </div>
+              <div
+                  style={{
+                    margin: "0",
+                    padding: "0",
+                    textAlign: "center",
+                    justifyContent: "center",
+                    color: "gray",
+                  }}
+                >
+                  {props.description}
+                </div>
             </div>
           </CardContent>
           <CardHeader
@@ -176,14 +194,13 @@ const HolidayItem = (props) => {
         </DialogActions>
       </Dialog>
       <ToastContainer />
-      </>
+    </>
   );
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      
       DeleteHoliday: (id) => DeleteHoliday(id),
     },
     dispatch

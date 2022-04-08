@@ -20,7 +20,7 @@ export function SignUpUser(user) {
         toast.error("Something went wrong please check inputs and try again");
       }
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 }
@@ -35,12 +35,14 @@ export const LogInUser = (user) => {
         dispatch(userAction.logIn(response.data.user));
         dispatch(userAction.teacher());
         toast.success("Successfully Logged in!");
-      } else {
-        alert("User not found");
-        toast.error("User not found");
       }
+      // else {
+      //   alert("User not found");
+      //   toast.error("User not found");
+      // }
+      if (response.status === 204) toast.error("User not found");
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 };
@@ -49,18 +51,57 @@ export const EditUser = (user, id) => {
   console.log(user, id);
   return async (dispatch) => {
     console.log(`${BASE_URL}/updateuser/${id}`);
+
     try {
       let response = await axios.patch(`${BASE_URL}/updateuser/${id}`, user);
       console.log(response.data);
       console.log(response.data.user);
       if (response.status === 200) {
-        toast.success("Successfully Logged in!");
-      } else {
-        alert("User not found");
-        toast.error("User not found");
+        dispatch(userAction.editUser(response.data));
+        toast.success("Profile Changed successfully!");
+        // console.log(user)
       }
     } catch (err) {
-      alert(err);
+      toast.error("User not found");
+    }
+  };
+};
+
+export const EditImage = (user, id) => {
+  console.log(user, id);
+  return async (dispatch) => {
+    console.log(`${BASE_URL}/profilepic/${id}`);
+    try {
+      let response = await axios.patch(`${BASE_URL}/profilepic/${id}`, user);
+      console.log(response.data);
+      console.log(response.data.user);
+      if (response.status === 200) {
+        dispatch(userAction.editUser(response.data));
+        toast.success("Profile Changed successfully!");
+      }
+    } catch (err) {
+      toast.error("User not found");
+    }
+  };
+};
+
+export const ChangePassword = (password, id) => {
+  console.log(password, id);
+  return async (dispatch) => {
+    console.log(`${BASE_URL}/changepassword/${id}`);
+    try {
+      let response = await axios.patch(
+        `${BASE_URL}/changepassword/${id}`,
+        password
+      );
+      console.log(response.data);
+      console.log(response.data.user);
+      if (response.status === 200) {
+        dispatch(userAction.editUser(response.data));
+        toast.success("Password Changed Successfully!");
+      }
+    } catch (err) {
+      toast.error("User not found");
     }
   };
 };
@@ -81,13 +122,6 @@ export const PostResult = (result) => {
         toast.success("Result added successfully");
       }
     } catch (err) {
-      dispatch(loginActions.openN());
-      dispatch(
-        loginActions.showNotification({
-          status: "error",
-          message: "Something went wrong",
-        })
-      );
       toast.error("Something went wrong");
     }
   };
@@ -102,7 +136,7 @@ export const PostContact = (contact) => {
         toast.success("Contact added Successfully!");
       }
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 };
@@ -127,18 +161,11 @@ export const GetContact = () => {
     try {
       let response = await axios.get(`${BASE_URL}/getcontact`);
       if (response.status === 404) {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "error",
-            message: "Contacts are not available!",
-          })
-        );
+        toast.error("Contact not found");
       }
       dispatch(userAction.storeContact(response.data));
     } catch (err) {
-      alert(err);
-      toast.error("Something went wrong");
+      toast.error(err);
     }
   };
 };
@@ -149,18 +176,11 @@ export const GetHoliday = () => {
       let response = await axios.get(`${BASE_URL}/getholiday`);
 
       if (response.status === 404) {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "error",
-            message: "Holidays are not available!",
-          })
-        );
+        toast.error("Holiday not found");
       }
       dispatch(userAction.storeHoliday(response.data));
     } catch (err) {
-      alert(err);
-      toast.error("Something went wrong");
+      toast.error(err);
     }
   };
 };
@@ -171,19 +191,12 @@ export const GetResult = (user) => {
       let response = await axios.get(`${BASE_URL}/results/${user._id}`);
 
       if (response.status === 404) {
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "error",
-            message: "Reslult is not available!",
-          })
-        );
+        toast.error("result not found");
       }
       dispatch(userAction.storeResult(response.data));
       // toast.success("Reslult is not available!");
     } catch (err) {
-      alert(err);
-      toast.error("Something went wrong");
+      toast.error(err);
     }
   };
 };
@@ -198,8 +211,7 @@ export const DeleteHoliday = (id) => {
         dispatch(userAction.deleteHoliday(response.data));
       }
     } catch (err) {
-      alert(err);
-      toast.error("Something went wrong");
+      toast.error(err);
     }
   };
 };
@@ -210,18 +222,10 @@ export const DeleteContact = (id) => {
       let response = await axios.delete(`${BASE_URL}/contact/${id}`);
       if (response.status === 200) {
         dispatch(userAction.deleteContact(response.data));
-        dispatch(loginActions.openN());
-        dispatch(
-          loginActions.showNotification({
-            status: "success",
-            message: "Contact deleted successfully!",
-          })
-        );
         toast.success("Contact deleted successfully!");
       }
     } catch (err) {
-      alert(err);
-      toast.error("Something went wrong");
+      toast.error(err);
     }
   };
 };

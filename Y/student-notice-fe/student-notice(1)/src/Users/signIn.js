@@ -1,4 +1,4 @@
-import React, { useRef, useState, Fragment } from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "@reduxjs/toolkit";
@@ -118,7 +118,7 @@ const SignIn = (props) => {
     props?.SignUpUser(user);
 
     const handleClick = () => {
-      history.push("/holiday ");
+      history.push("/holiday");
     };
     handleClick();
   };

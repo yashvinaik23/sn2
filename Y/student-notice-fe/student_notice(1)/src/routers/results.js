@@ -30,7 +30,7 @@ router.patch("/results/:id", async (req, res) => {
 router.delete("/results/:id", async (req, res) => {
   try {
     const result = await results.findByIdAndDelete(req.params.id);
-    if (result) {
+    if (!result) {
       return res.status(404).send();
     }
     res.send(result);
@@ -58,7 +58,6 @@ router.get("/results/:id", async (req, res) => {
     if (!result) {
       return res.status(404).send();
     }
-
     res.send(result);
   } catch (e) {
     res.status(500).send();

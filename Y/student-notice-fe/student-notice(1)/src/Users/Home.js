@@ -56,11 +56,9 @@ const Home = () => {
         <div className={classes.feature}>
           <h1 className={classes.textCenter}>Welcome to The Smith School</h1>
           <p className={classes.text2}>
-            Babu Madhav Institute of Information Technology, popularly known as
-            BMIIT is premier institute of Uka Tarsadia University which offers
-            two courses of Three Years Bachelor of Science in Information
-            Technology B.Sc. (IT) and Five Years Integrated Masters of Science
-            in Information Technology; and named after its beloved donor
+            The Smith School of Unighted Kingdom, popularly known as
+            TSMUK is premier institute of Uka Tarsadia University which offers
+            courses of Primary education from standard one to standard twelve; and named after its beloved donor
             respected Shri Babubhai Madhavbhai Patel a great human being and
             renowned businessman from USA.
             <br />
@@ -79,7 +77,7 @@ const Home = () => {
             <br />
             The Smith School is furnished with state of the art infrastructure. All class
             rooms are equipped with projector, Wi-Fi access. Laboratories are
-            also equipped with around 200 high configuration computers and audio
+            also equipped, around 200 high configuration computers and audio
             visual tools to provide better learning environment.
           </p>
         </div>

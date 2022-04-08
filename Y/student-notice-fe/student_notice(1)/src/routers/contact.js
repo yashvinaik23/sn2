@@ -46,8 +46,6 @@ router.patch("/editcontact/:id", async (req, res) => {
         email: req.body.email,
         description: req.body.description,
         contact: req.body.contact,
-        // ...req.body,
-        // Image: filePath[filePath.length - 1],
       },
       { new: true }
     );
