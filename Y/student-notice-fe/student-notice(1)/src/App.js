@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector, connect } from "react-redux";
+import { bindActionCreators } from "@reduxjs/toolkit";
+import { useHistory, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import { loginActions } from "./store/logIn";
 import { userAction } from "./store/user";
+import { LogoutUser } from "../src/actions/actions";
 import Navbar from "./component/navigation/Navbar";
 import Footer from "./UI/Footer";
 import Holiday from "./component/pages/home/Holiday";
@@ -17,19 +18,22 @@ import Form from "./Users/Form";
 import Profile from "./Users/Profile";
 import SignIn from "./Users/signIn";
 
-function App() {
+function App(props) {
   console.log(process.env.REACT_APP_BASE_URL);
   const isLogin = useSelector((state) => state.logIn.isLoggedIn);
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   const dispatch = useDispatch();
 
   function Content() {
     let history = useHistory();
+  //  props?.LogoutUser(user,token);
     dispatch(loginActions.logout());
     dispatch(userAction.logOut());
 
     <Redirect to="" />;
-   
+
     window.location.reload(false);
   }
 
@@ -47,7 +51,6 @@ function App() {
           </>
         )}
         <Route exact path="/login" component={Form} />
-        {/* <Route exact path="/signin" component={SignIn} /> */}
         <Route path="/" component={Home} />
       </Switch>
       <Footer />
@@ -55,4 +58,13 @@ function App() {
     </Router>
   );
 }
-export default App;
+// export default App;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      LogoutUser: (user, token) => LogoutUser(user, token),
+    },
+    dispatch
+  );
+};
+export default connect(null, mapDispatchToProps)(App);

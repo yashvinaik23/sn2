@@ -18,13 +18,13 @@ import {
   Avatar,
   Divider,
 } from "@material-ui/core";
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
 import AddUser from "../../Users/AddUser";
 import SignIn from "../../Users/signIn";
 import logo from "../../UI/image/logo.png";
-import image from "../../UI/image/images.png"
+import image from "../../UI/image/images.png";
 
 const BASE_URL = "http://localhost:8000/public/";
 
@@ -94,9 +94,9 @@ function Navbar() {
 
   const handleClose = () => {
     setOpenLogIn(false);
-    setOpenLogIn(false);
+    setOpenSignIn(false);
   };
-
+  
   const formManipulate = () => {
     if (openLogIn) {
       setOpenLogIn(false);
@@ -148,48 +148,48 @@ function Navbar() {
                     alt={image}
                   />
                 </IconButton>
-                
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleCloseMenu}
+
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                  style={{
+                    borderRadius: "15px",
+                    marginLeft: "20px",
+                    marginTop: "14px",
+                  }}
+                >
+                  <Typography
                     style={{
-                      borderRadius: "15px",
-                      marginLeft: "20px",
-                      marginTop: "14px",
+                      textDecoration: "none",
+                      color: "black",
+                      textAlign: "center",
                     }}
                   >
-                    <Typography
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                        textAlign: "center",
-                      }}
-                    >
-                      {user.name}
-                    </Typography>
-                    <Divider />
-                    <Link
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                      }}
-                      to="/profile"
-                    >
-                      <MenuItem>Edit Profile</MenuItem>
-                    </Link>
-                    <Link
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                      }}
-                      to="/Logout"
-                    >
-                      <MenuItem>Log Out</MenuItem>
-                    </Link>
-                  </Menu>
+                    {user.name}
+                  </Typography>
+                  <Divider />
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    to="/profile"
+                  >
+                    <MenuItem>Edit Profile</MenuItem>
+                  </Link>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    to="/Logout"
+                  >
+                    <MenuItem>Log Out</MenuItem>
+                  </Link>
+                </Menu>
               </>
             )}
 
@@ -202,6 +202,13 @@ function Navbar() {
                 >
                   Log In
                 </Button>
+                <Button
+                  className={classes.link}
+                  style={{ marginTop: "5px" }}
+                  onClick={handleOpenSignIn}
+                >
+                  Sign Up
+                </Button>
                 <Modal
                   open={openLogIn}
                   onClose={handleClose}
@@ -213,13 +220,7 @@ function Navbar() {
                     formManipulate={formManipulate}
                   />
                 </Modal>
-                <Button
-                  className={classes.link}
-                  style={{ marginTop: "5px" }}
-                  onClick={handleOpenSignIn}
-                >
-                  Sign Up
-                </Button>
+
                 <Modal
                   open={openSignIn}
                   onClose={handleClose}

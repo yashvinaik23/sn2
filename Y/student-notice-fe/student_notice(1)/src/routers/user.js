@@ -75,26 +75,35 @@ router.get("/users/:id", auth, async (req, res) => {
 
 router.patch("/updateuser/:id", upload.single("Image"), async (req, res) => {
   const id = req.params.id;
-console.log("body-----------------",req.body)
-console.log("file-----------------",req.file)
 
   try {
-    let filePath = req.file.path.split("/");
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        name: req.body.name,
-        email: req.body.email,
-        // password: req.body.password,
-        contact: req.body.contact,
-        address: req.body.address,
-        Image: filePath[filePath.length - 1],
-      },
-      { new: true }
-    );
+    let filePath = req.file && req.file.path.split("/");
+    const user = req.file
+      ? await User.findByIdAndUpdate(
+          id,
+          {
+            name: req.body.name,
+            email: req.body.email,
+            contact: req.body.contact,
+            address: req.body.address,
+            Image: filePath[filePath.length - 1],
+          },
+          { new: true }
+        )
+      : await User.findByIdAndUpdate(
+          id,
+          {
+            name: req.body.name,
+            email: req.body.email,
+            contact: req.body.contact,
+            address: req.body.address,
+          },
+          { new: true }
+        );
     if (user) {
       res.send(user);
     }
+    res.status(400);
   } catch (e) {
     res.status(500).send(e);
   }
@@ -109,15 +118,12 @@ router.patch("/changepassword/:id", async (req, res) => {
       req.body.password,
       req.body.newPassword
     );
-    if (!user) return res.status(204).send({ message: "In valid user" });
-    console.log("Here------",user.password)
-    console.log("req pass",req.body.newPassword)
+    if (!user) return res.status(403).send({ message: "In valid user" });
     const password = await bcrypt.hash(req.body.newPassword, 8);
-    console.log("behind-------------",password);
     const user2 = await User.findByIdAndUpdate(id, { password }, { new: true });
-    console.log("user2--------------", user2);
     return res.status(200).send(user2);
   } catch (e) {
+    console.log(e);
     return res.status(400).send({ error: "Authentication Fail" });
   }
 });
@@ -153,12 +159,15 @@ router.post("/users/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
+    // console.log(req.body.user, req.body.token);
+    console.log(req.body.user.tokens);
+    req.body.user.tokens = req.body.user.tokens.filter((token) => {
+      return token.token !== req.body.token;
     });
-    await req.user.save();
+    console.log(req.body.user.tokens);
+    await req.body.user.save();
 
-    res.send();
+    res.send(req.body.user);
   } catch (e) {
     res.status(500).send();
   }

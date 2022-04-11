@@ -84,7 +84,6 @@ userSchema.methods.generateAuthToken = async function () {
 
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
-  console.log("aaaaaaaaa--->",password,user.password)
   if (!user) {
     return false;
   }
@@ -100,14 +99,11 @@ userSchema.statics.findByCredentials = async (email, password) => {
 userSchema.statics.changePassword = async (id, password, newPass) => {
   try {
     const user = await User.findById(id);
-    //console.log("in cp", user);
-
+    
     if (!user) {
       return false;
     }
-    console.log("test-----",password, user.password);
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("isMatch:", isMatch);
     if (isMatch) {
       return user;
     }

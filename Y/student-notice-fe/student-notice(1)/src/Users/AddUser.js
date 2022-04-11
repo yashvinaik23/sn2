@@ -12,11 +12,11 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { LogInUser } from "../actions/actions";
+import { ImportantDevices } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
   body: {
     padding: "60px 60px",
-    margin: "125px 350px",
     border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
@@ -32,6 +32,9 @@ const useStyles = makeStyles(() => ({
   },
   error: {
     color: "red",
+    textAlign: "left !important",
+    width:'100%',
+    paddingLeft:'30px',
   },
   LinkColor: {
     textDecoration: "none",
@@ -52,23 +55,33 @@ const AddUser = (props) => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
-  const [emailError, setEmailError] = useState(false);
-  const [passError, setPassError] = useState(false);
+  const [emailError, setEmailError] = useState();
+  const [passError, setPassError] = useState();
 
   const history = useHistory();
 
   const addUserHandler = (event) => {
     event.preventDefault();
 
-    if (!emailRef.current.value.includes("@gmail.com")) {
-      setEmailError(true);
+    if (emailRef.current.value.trim().length === 0) {
+      setEmailError("Enter your Email");
       return;
-    }
+    } else setEmailError();
+
+    if (!emailRef.current.value.includes("@gmail.com")) {
+      setEmailError("Invalid Email");
+      return;
+    } else setEmailError();
+
+    if (passwordRef.current.value.trim().length === 0) {
+      setPassError("Enter your Password");
+      return;
+    } else setPassError();
 
     if (passwordRef.current.value.trim().length < 8) {
-      setPassError(true);
+      setPassError("Invlid Password (min 8 characters needed)");
       return;
-    }
+    } else setPassError()
     const user = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
@@ -89,7 +102,7 @@ const AddUser = (props) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "right",
-        margin: "50px 350px",
+        margin: "200px 550px",
       }}
     >
       <Paper elevation={3} className={classes.body}>
@@ -108,11 +121,18 @@ const AddUser = (props) => {
               inputRef={emailRef}
             />
           </Grid>
-          {emailError && (
-            <FormHelperText className={classes.error}>
-              Incorrect Email
-            </FormHelperText>
-          )}
+          {
+            emailError && (
+              <Grid className={classes.error}>
+                <Typography>{emailError}</Typography>
+              </Grid>
+            )
+            // (
+            //   <FormHelperText className={classes.error}>
+            //     Incorrect Email
+            //   </FormHelperText>
+            // )
+          }
           <Grid item>
             <TextField
               id="password"
@@ -122,9 +142,12 @@ const AddUser = (props) => {
               inputRef={passwordRef}
             />
           </Grid>
-          {passError && (
-            <FormHelperText className={classes.error}>Required</FormHelperText>
-          )}
+          {
+            passError && (
+              <Grid className={classes.error}>
+                <Typography>{passError}</Typography>
+              </Grid>
+            )}
           <Grid item>
             <Button
               id="btnLogin"

@@ -14,7 +14,6 @@ import {
 const useStyles = makeStyles(() => ({
   body: {
     padding: "60px 60px",
-    margin: "125px 350px",
     border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
@@ -30,21 +29,48 @@ const useStyles = makeStyles(() => ({
   },
   error: {
     color: "red",
+    textAlign: "left !important",
+    width: "100%",
+    paddingLeft: "30px",
   },
 }));
 
 const ChangePaaword = (props) => {
   const classes = useStyles();
   const user = useSelector((state) => state.user.user);
-  const [oldPass, setOldPass] = useState();
-  const [newPass, setNewPass] = useState();
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [oldPassError, setOldPassError] = useState();
+  const [newPassError, setNewPassError] = useState();
 
-  const changePassword = () => {
+  const changePassword = (event) => {
+    event.preventDefault();
+    if (oldPass.length === 0) {
+      setOldPassError("Enter your Password");
+      return;
+    } else setOldPassError();
+
+    if (oldPass.trim().length <8) {
+      setOldPassError("Enter valid Password");
+      return;
+    } else setOldPassError();
+
+    if (newPass.length === 0) {
+      setNewPassError("Enter new Password");
+      return;
+    } else setNewPassError();
+
+    if (newPass.trim().length <8) {
+      setNewPassError("Invlid Password (min 8 characters needed)");
+      return;
+    } else setNewPassError();
+
     const password = {
       password: oldPass,
       newPassword: newPass,
     };
     props?.ChangePassword(password, user._id);
+    props.handleClose();
     // console.log(password);
   };
 
@@ -55,9 +81,10 @@ const ChangePaaword = (props) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        margin: "200px 550px",
       }}
     >
-      <Paper elevation={3} className={classes.body}>
+      <Paper className={classes.body}>
         <Grid container direction="column" spacing={4} alignItems="center">
           <Grid item>
             <Typography variant="h4" component="h2">
@@ -75,6 +102,11 @@ const ChangePaaword = (props) => {
               }}
             />
           </Grid>
+          {oldPassError && (
+            <Grid className={classes.error}>
+              <Typography>{oldPassError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <TextField
               id="newpass"
@@ -86,15 +118,19 @@ const ChangePaaword = (props) => {
               }}
             />
           </Grid>
+          {newPassError && (
+            <Grid className={classes.error}>
+              <Typography>{newPassError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <Button
               id="btnSignup"
               variant="contained"
               className={classes.submitButton}
               type="submit"
-              onClick={() => {
-                changePassword();
-                props.handleClose();
+              onClick={(event) => {
+                changePassword(event);
               }}
             >
               Change Password
@@ -111,7 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       // SignUpUser: user => SignUpUser(user),
       // EditUser: (user, id) => EditUser(user, id),
-      ChangePassword:(password,id)=>ChangePassword(password,id),
+      ChangePassword: (password, id) => ChangePassword(password, id),
     },
     dispatch
   );

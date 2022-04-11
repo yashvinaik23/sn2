@@ -3,8 +3,10 @@ import { loginActions } from "../store/logIn";
 import { userAction } from "../store/user";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const token = useSelector((state)=>state.user.token);
 
 export function SignUpUser(user) {
   return async (dispatch) => {
@@ -12,7 +14,7 @@ export function SignUpUser(user) {
       let response = await axios.post(`${BASE_URL}/reg`, user);
       if (response.status === 201) {
         dispatch(loginActions.login());
-        dispatch(userAction.signIn(response.data.user));
+        dispatch(userAction.signIn(response.data));
         dispatch(userAction.teacher());
         toast.success("Successfully sign In!");
       } else {
@@ -29,10 +31,11 @@ export const LogInUser = (user) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(`${BASE_URL}/users/login`, user);
+      console.log(response.data.token);
       if (response.status === 200) {
         dispatch(loginActions.login());
 
-        dispatch(userAction.logIn(response.data.user));
+        dispatch(userAction.logIn(response.data));
         dispatch(userAction.teacher());
         toast.success("Successfully Logged in!");
       }
@@ -61,26 +64,13 @@ export const EditUser = (user, id) => {
         toast.success("Profile Changed successfully!");
         // console.log(user)
       }
+      // if (response.status === 500)
+      //   toast.error("Something went wrong. Please check your data.");
+      else toast.error("Something went wrong. Please check your data.");
+      if (response.status === 400)
+        toast.error("In 400 Something went wrong. Please check your data.");
     } catch (err) {
-      toast.error("User not found");
-    }
-  };
-};
-
-export const EditImage = (user, id) => {
-  console.log(user, id);
-  return async (dispatch) => {
-    console.log(`${BASE_URL}/profilepic/${id}`);
-    try {
-      let response = await axios.patch(`${BASE_URL}/profilepic/${id}`, user);
-      console.log(response.data);
-      console.log(response.data.user);
-      if (response.status === 200) {
-        dispatch(userAction.editUser(response.data));
-        toast.success("Profile Changed successfully!");
-      }
-    } catch (err) {
-      toast.error("User not found");
+      toast.error(err);
     }
   };
 };
@@ -100,6 +90,9 @@ export const ChangePassword = (password, id) => {
         dispatch(userAction.editUser(response.data));
         toast.success("Password Changed Successfully!");
       }
+      else toast.error("Something went wrong")
+      if (response.status === 403) {
+        toast.error("Invalid Password");}
     } catch (err) {
       toast.error("User not found");
     }
@@ -150,6 +143,25 @@ export const PostHoliday = (holiday) => {
         dispatch(userAction.addHoliday(response.data));
         toast.success("Holiday added Successfully!");
       }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+  };
+};
+
+export const LogoutUser = (user, token) => {
+  return async (dispatch) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      let response = await axios.post(`${BASE_URL}/logout`, { user, token });
+      if (response.status !== 500) {
+        dispatch(loginActions.logout());
+        dispatch(userAction.logOut());
+      }
+      toast.error("Something went wrong");
     } catch (err) {
       toast.error("Something went wrong");
     }

@@ -22,7 +22,7 @@ import { SignUpUser } from "../actions/actions";
 const useStyles = makeStyles(() => ({
   body: {
     padding: "60px 60px",
-    margin: "125px 350px",
+    // margin: "225px 450px",
     border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
@@ -38,6 +38,8 @@ const useStyles = makeStyles(() => ({
   },
   error: {
     color: "red",
+    width: "100%",
+    paddingLeft: "30px",
   },
   LinkColor: {
     textDecoration: "none",
@@ -54,11 +56,12 @@ const useStyles = makeStyles(() => ({
 
 const SignIn = (props) => {
   const classes = useStyles();
-  const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [contactError, setContactError] = useState(false);
-  const [passError, setPassError] = useState(false);
-  const [addressError, setAddressError] = useState(false);
+  const [nameError, setNameError] = useState();
+  const [emailError, setEmailError] = useState();
+  const [contactError, setContactError] = useState();
+  const [passError, setPassError] = useState();
+  const [addressError, setAddressError] = useState();
+  const [possError,setPossError]=useState();
   const nameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -72,39 +75,46 @@ const SignIn = (props) => {
     event.preventDefault();
 
     if (nameRef.current.value.trim().length === 0) {
-      setNameError(true);
+      setNameError("Enter your name");
       return;
-    } else {
-      setNameError(false);
-    }
+    } else setNameError();
+
+    if (emailRef.current.value.trim().length === 0) {
+      setEmailError("Enter your email");
+      return;
+    } else setEmailError();
 
     if (!emailRef.current.value.includes("@gmail.com")) {
-      setEmailError(true);
+      setEmailError("Invalid Email");
       return;
-    } else {
-      setEmailError(false);
-    }
+    } else setEmailError();
+    
+    if (passwordRef.current.value.trim().length === 0) {
+      setPassError("Enter your Password");
+      return;
+    } else setPassError();
 
     if (passwordRef.current.value.trim().length < 8) {
-      setPassError(true);
+      setPassError("Invlid Password (min 8 characters needed)");
       return;
-    } else {
-      setPassError(false);
-    }
+    } else setPassError();
+    
+    if (contactRef.current.value.trim().length === 0) {
+      setContactError("Enter your Contact ");
+      return;
+    } else setContactError();
 
     if (contactRef.current.value.toString().trim().length !== 10) {
-      setContactError(true);
+      setContactError("Invalid Contact");
       return;
-    } else {
-      setContactError(false);
-    }
+    } else setContactError();
 
     if (addressRef.current.value.trim().length === 0) {
-      setAddressError(true);
+      setAddressError("Enter your Address");
       return;
-    } else {
-      setAddressError(false);
-    }
+    } else setAddressError();
+
+    if(!(posRef.current.value === "Teacher") || !(posRef.current.value === "Student")) setPossError("Enter valid Position")
 
     const user = {
       name: nameRef.current.value,
@@ -129,7 +139,9 @@ const SignIn = (props) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "right",
+        margin: "100px 550px",
+        // margin: "100px 550px",
       }}
     >
       <Paper elevation={3} className={classes.body}>
@@ -139,6 +151,7 @@ const SignIn = (props) => {
               Signup
             </Typography>
           </Grid>
+
           <Grid item>
             <TextField
               id="username"
@@ -148,6 +161,11 @@ const SignIn = (props) => {
               inputRef={nameRef}
             />
           </Grid>
+          {nameError && (
+            <Grid className={classes.error}>
+              <Typography>{nameError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <TextField
               id="email"
@@ -157,6 +175,11 @@ const SignIn = (props) => {
               inputRef={emailRef}
             />
           </Grid>
+          {emailError && (
+            <Grid className={classes.error}>
+              <Typography>{emailError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <TextField
               id="password"
@@ -166,15 +189,25 @@ const SignIn = (props) => {
               className={classes.inputBox}
             />
           </Grid>
+          {passError && (
+            <Grid className={classes.error}>
+              <Typography>{passError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <TextField
               id="contact"
-              type="text"
+              type="number"
               label="Contact Number"
               className={classes.inputBox}
               inputRef={contactRef}
             />
           </Grid>
+          {contactError && (
+            <Grid className={classes.error}>
+              <Typography>{contactError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <TextField
               id="Address"
@@ -184,6 +217,11 @@ const SignIn = (props) => {
               inputRef={addressRef}
             />
           </Grid>
+          {addressError && (
+            <Grid className={classes.error}>
+              <Typography>{addressError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <FormControl fullWidth className={classes.inputBox}>
               <InputLabel>Type</InputLabel>
@@ -193,6 +231,11 @@ const SignIn = (props) => {
               </Select>
             </FormControl>
           </Grid>
+          {possError && (
+            <Grid className={classes.error}>
+              <Typography>{possError}</Typography>
+            </Grid>
+          )}
           <Grid item>
             <Button
               id="btnSignup"

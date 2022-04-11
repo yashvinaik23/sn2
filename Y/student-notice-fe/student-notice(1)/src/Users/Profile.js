@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect, useSelector } from "react-redux";
-import { EditUser,EditImage } from "../actions/actions";
+import { EditUser } from "../actions/actions";
 import ChangePaaword from "./ChangePaaword";
 import {
   Grid,
@@ -16,7 +16,7 @@ import {
 const useStyles = makeStyles(() => ({
   body: {
     padding: "60px 60px",
-    margin: "125px 350px",
+    margin: "50px 350px",
     border: `4px solid #4DB6AC`,
     borderRadius: 15,
   },
@@ -32,6 +32,8 @@ const useStyles = makeStyles(() => ({
   },
   error: {
     color: "red",
+    width: "100%",
+    paddingLeft: "30px",
   },
   LinkColor: {
     textDecoration: "none",
@@ -54,6 +56,10 @@ const Profile = (props) => {
   const [email, setEmail] = useState(user.email);
   const [contact, setContact] = useState(user.contact);
   const [address, setAddress] = useState(user.address);
+  const [nameError, setNameError] = useState();
+  const [emailError, setEmailError] = useState();
+  const [contactError, setContactError] = useState();
+  const [addressError, setAddressError] = useState();
 
   const [profile, setProfile] = useState();
 
@@ -67,6 +73,31 @@ const Profile = (props) => {
   const addUserHandler = (event) => {
     event.preventDefault();
 
+    if (name.trim().length === 0) {
+      setNameError("Enter your name");
+      return;
+    } else setNameError();
+
+    if (email.trim().length === 0) {
+      setEmailError("Enter your email");
+      return;
+    } else setEmailError();
+
+    if (!email.includes("@gmail.com")) {
+      setEmailError("Invalid Email");
+      return;
+    } else setEmailError();
+    
+    if (contact.toString().trim().length !== 10) {
+      setContactError("Invalid Contact");
+      return;
+    } else setContactError();
+
+    if (address.trim().length === 0) {
+      setAddressError("Enter your Address");
+      return;
+    } else setAddressError();
+
     let formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
@@ -76,20 +107,7 @@ const Profile = (props) => {
     console.log(name, email, contact, address, profile);
     console.log(formData);
 
-    // const user2={name, email, contact, address}
-
-    // let imgForm = new FormData();
-    // // formData.append("name", name);
-    // // formData.append("email", email);
-    // // formData.append("contact", contact);
-    // // formData.append("address", address);
-    // imgForm.append("Image", profile);
-    // console.log(user);
-    // console.log(imgForm);
-
-    props?.EditUser(formData, user._id);
-    // if(profile) props?.EditImage(imgForm, user._id);
-   
+    props?.EditUser(formData, user._id);   
   };
 
   const handleClose = () => {
@@ -125,6 +143,11 @@ const Profile = (props) => {
                 value={name}
               />
             </Grid>
+            {nameError && (
+            <Grid className={classes.error}>
+              <Typography>{nameError}</Typography>
+            </Grid>
+          )}
             <Grid item>
               <TextField
                 id="email"
@@ -137,7 +160,11 @@ const Profile = (props) => {
                 value={email}
               />
             </Grid>
-
+            {emailError && (
+            <Grid className={classes.error}>
+              <Typography>{emailError}</Typography>
+            </Grid>
+          )}
             <Grid item>
               <TextField
                 id="contact"
@@ -150,6 +177,11 @@ const Profile = (props) => {
                 value={contact}
               />
             </Grid>
+            {contactError && (
+            <Grid className={classes.error}>
+              <Typography>{contactError}</Typography>
+            </Grid>
+          )}
             <Grid item>
               <TextField
                 id="Address"
@@ -162,6 +194,11 @@ const Profile = (props) => {
                 value={address}
               />
             </Grid>
+            {addressError && (
+            <Grid className={classes.error}>
+              <Typography>{addressError}</Typography>
+            </Grid>
+          )}
             <Grid item>
               <TextField
                 id="Profile"
@@ -213,7 +250,6 @@ const mapDispatchToProps = (dispatch) => {
     {
       // SignUpUser: user => SignUpUser(user),
       EditUser: (user2, id) => EditUser(user2 , id),
-      EditImage: (user, id) => EditImage(user, id),
     },
     dispatch
   );
